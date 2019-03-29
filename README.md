@@ -32,5 +32,5 @@ Controlling an alternative 220/110 volts from a 5 volts microcontroller.
 <p align="center">
 
 
-[embed]https://raw.githubusercontent.com/Moh-Snoussi/microcontroller-smart-dimmer/master/gradateurt.PDF[/embed]
+[embed]https://raw.githubusercontent.com/Moh-Snoussi/microcontroller-smart-dimmer/master/gradateurt.pdf[/embed]
 <img src="https://raw.githubusercontent.com/Moh-Snoussi/microcontroller-smart-dimmer/master/circuit.JPG" alt="circuit" title="project circuit"></p>
