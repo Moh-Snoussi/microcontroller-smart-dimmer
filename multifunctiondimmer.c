@@ -1,25 +1,60 @@
 /**
  * @Author: Mohamed Snoussi
  * @email: sooniic@live.com
+ * @Compiler: CCS C Compiler
  * 
  * @ALERT: USE IS AT YOUR OWN RISK
  * 
- * @DANGER: This progect is dangerous and can threatten your life, can cause death, damage or fire
+ * @DANGER: Risk Of Electrical Shock and Danger Of Death High Voltage, electrical hazards.
+ * This progect is dangerous and can threatten your life, damage or fire
  * 
- * @project: controlling an alternative 220/110 volts from a 5 volts microcontroller
+ * @project: controlling an alternative 220/110 volts from a 5 volts microcontroller 
+ * 
+ * control interface :
+ * 
+ * 1 : API: uart protocol with a baud rate of 1200 that can be connected and communication
+ *          can be established through computer usb to serial adaptaeur directly or trough 
+ *          a radio frequencies module with an rf module 433mhz transmiter where the receiver
+ *          is connected to the uart microcontroller that fires an interupt if it recieve a signal. 
+ *
+ *     - The instraction need to contain two bytes one byte key and one byte instraction:
+ *       - the first byte is a key and it need to be 0xBD
+ *       - the second byte is the instraction and it need to be as follows:
+ *         - from 0x33 to 0x39 will light up the lamp accordingly: 0x33 the lamp is low dimmed, 0x39 the lamp is high dimmed
+ *         - 0x40 will light if the surrounding light is not enough and there is a body motion detected
+ *         - 0x41 light on body movement detection
+ *         - 0x42 adjusting to the surrounding light by the light modeSelector 
+ *         - 0x43 manual adjustment by the variable resistor
+ *         - 0x61 will dime the lamp from the lowest level to the highest level on infinit loop
+ *         
+ * 2 : Manual control
+ *     The manual controller consists of one button and variable resistor: 
+ *        - The button is the mode selector and the variable resistor function according to the selected mode
+ *          Long buttonPresschange the mode (a two color led diode indicate the selected mode  ) :
+ * 
+ *          - 1 : manual luminosity adjustment by the variable resistor
+ *          - 2 : auto adjusting luminosity to the surrounding light
+ *          - 3 : lights on body movement detection
+ *          - 4 : lights if the surrounding light is not enough and there is a body motion detected
+ *          - 5 : will dime the lamp from the lowest level to the highest level and vise-versa on an infinit loop
+ *          - 6 : Light on and can be controlled by normal switch (our system is hiding) 
+ *          - 7 : system is on and light is off
+ * 
+ * 
  * 
  * @WARNING make sure that the is no physical connection between the 220/110 volts circuit and 5 volts circuit
- * the only links bettween the 220/110 volts circuit and the 5 volts circuit is the optocouplers(4N35) and the optoisolator(MOC3020)
+ * the only links bettween the 220/110 volts circuit and the 5 volts circuit is the optocouplers(4N35) and the optoisolator(MOC3020).
+ * Make also sure that the conrole interface is connected through connectors and seperated from the circuit 
  * 
  * @brief: run from F18 PIC MICROONTROLLER series 
  * the solution work on the provided circuit to control a 220/110 volts 60/50 MHZ alternative current output
  * as a demonstration we use a lamp 
  * 
- * the lamp control is done by observing the alternative current pulse and detecting the rise  of its curve with 4n35 
+ * the lamp control is done by observing the alternative current pulse and detecting the rise of its curve with 4n35 
  * then allow the ground flow to a pull up resistor that cause an interupt on the microcontroller 
- * where we proccess according to the state control and output a signal accordingly to the moc3020 that open up a gate 
- * for the 220/110 volts 60/50 MHZ alternative current on each half oscillation in order for the light to dime 
- * without resistor.
+ * where we proccess according to the selected mode and output a signal accordingly to the moc3020 and to the triac 
+ * that open up a gate for the 220/110 volts 60/50 MHZ alternative current on each half oscillation in order for the 
+ * light to dime without resistor.
  * 
  * The solution functions
  * Light dimmer with manual adjustment
@@ -29,41 +64,36 @@
  * Light up after detecting a body movement only only if there is no sourounding light
  * Light up any mode by an API request 
  * 
- * @Controls:
- * The program consist of 2 control interface :
- * 
- * 1 : API: uart protocol with a baud rate of 1200
- *     listen to the uart port for new instraction :
- *     - The instraction need to contain two bytes one byte key and one byte instraction:
- *       - the first byte is a key and it need to be 0xBD
- *       - the second byte is the instraction and it need to be as follows:
- *         - from 0x33 to 0x39 will light up the lamp accordingly: 0x33 the lamp is low dimmed, 0x39 the lamp is high dimmed
- *         - 0x61 will dime the lamp from the lowest level to the highest level on infinit loop
- *         - 0x62 will dime the lamp according to the variable resistor
- *         - 0x63 will open or close the lamp light if it recieve a singal from pin x (used with motion detector sensor)
- *         
- * 2 : Manual control
- *     The manual controller consists of one button and variable resistor: 
- *        - The button is the mode selector and the variable resistor function according to the selected mode
- *          Long buttonPresschange the mode (a two color led diode indicate the selected mode  ) :
- * 
- *          - First mode the lamp is lightning according to outside light:
- *                     - If the variable resistor is less then first half then the more light outside the less light 
- *                       our lamp lights
- *                     - If the variable resistor is greater then first half then the more light outside the more light 
- *                       our lamp lights
+
  * 
  * @Requirements: 
- *       - PIC microcontroller 18F (to hold our application logic)
- *       - Light sensor (to observe the surrounding lightning )
- *       - Movement sensor PIR (to observe body movement)
- *       - Relay 5v 220/110 v (to lighten the 220/110 v from a 5 Volts signal)
- *       - 4n35 (to detect the the falling curve of a high alternative current)
- *       - MOC3020 (to control the high alternative current from 5 volts)
- *       - Button (for manual selecting the mode)
- *       - Variable resistor (for manual control)
- *       - 220/110 v to 5 volts transfour (to power or microcantroller) 
- *       - 220/110 v current plug 
+ *       - 1 PIC microcontroller 16f866
+ *       - 4 resistor 2.2k 1/4w
+ *       - 3 resistors 100K 1/4w
+ *       - 1 resistor 51k OHM 1/4w
+ *       - 2 resistors 680 OHM 1/2wat
+ *       - 1 risitor 10 k 1/4w
+ *       - 2 resitor 220 OHM 1/4w
+
+ *       - 2 30pf ceramic resistors
+ *       - 1 35v 10uf electrolic capasitor
+ *       - 1 bridge rectifier 3A 700V
+ *       - 1 optocoupleur phototransistor 4N35
+ *       - 1 optoisolator transistor MOC3020
+ *       - 1 20MHz Crystal Oscillator
+ *       - 1 relay 10A 5/25 DC - 110/220AC
+ *       - 3 NPN transistors C33740
+ *       - 1 Triac sensitive gate BT136X
+
+ *       - 2 Button
+ *       - 1 100K OHM Potentiometer
+ *       - 1 Photoresistor LDR (light sensor) (optional)
+ *       - 1 Infrared PIR Motion Sensor (optional)
+ *       - 1 connectors 9 pins (optional)
+ *       - 1 connectors 4 pins (optional)
+ *       - USB to serial converter (optional)
+ *       - rf module 433mhz receiver (optional)
+ *       - rf module 433mhz transmitter (optional)
  * 
  */
 
@@ -79,8 +109,9 @@ int modeSelector, out;
 /**
  * @brief API interface
  * UART communication baud rate 1200
- * This function fires only if an uart signal have 0xBD as first bite the check is done by interrupt function that is next to this function
- * Second uart bite is the instruction and mode selector 
+ * This function fires only if an uart signal have 0xBD as first byte the check is done by the interrupt function 
+ * that is next to this function.
+ * Second uart byte is the instruction and the mode selector 
  * this function should have an instruction byte as parametter
  * 
  * @name apiState
@@ -128,7 +159,7 @@ void apiState(int instruction)
 
             break;
 
-        case 0x34:               //  mid light output, no loop dimming lightLevel => 128 no light --- 0 full light
+        case 0x34:               // mid light output, no loop dimming lightLevel => 128 no light --- 0 full light
             lightLevel = 75;     // mid light output
             loopBreak = 0;       // no loop dimming
             manualControl = 0;   // no manual control
@@ -184,22 +215,26 @@ void apiState(int instruction)
 
         case 0x41:
             loopBreak = 0;       // no loop dimming
-            modeSelector = 3;    // Mode 4 is selected,
+            modeSelector = 3;    // Mode 4 is selected,light on body movement detection
             manualControl = 1;   // allow manual control
             OUTPUT_HIGH(PIN_B7); // output 5 volts from pin B7 to allow the relay flow of current
             break;
 
         case 0x42:
             loopBreak = 0; // no loop dimming
-            modeSelector = 2;
+            modeSelector = 2;// adjusting to the surrounding light by the light modeSelector
+            // the lamp is lightning according to outside light that is observed from the light sensor:
+            // light sensor to observed the out side light
+            // variable resistor:- if is greater then first half then the more light outside the more light our lamp lights
+            //                  :- if is less then first half then the more light outside the less light
             manualControl = 1;
             OUTPUT_HIGH(PIN_B7); // output 5 volts from pin B7 to allow the relay flow of current
             break;
 
         case 0x43:
             loopBreak = 0; // no loop dimming
-            modeSelector = 1;
-            manualControl = 1;
+            modeSelector = 1; // manual adjustment by the variable resistor
+            manualControl = 1;// allow manual control
             OUTPUT_HIGH(PIN_B7); // output 5 volts from pin B7 to allow the relay flow of current
             break;
 
@@ -306,7 +341,7 @@ void provide_action()
         switch (modeSelector)
         {
 
-        case 1: // manual adjustment by the variable resistor
+        case 1: // manual luminosity adjustment by the variable resistor
             // variable resistor
             clickTiming = 0;              // reset the press counter
             OUTPUT_HIGH(PIN_B7);          // relay on
@@ -315,7 +350,7 @@ void provide_action()
             lightLevel = (int)adc(0) / 2; // analog to digital convertion from the variable resistor
             break;
 
-        case 2: // adjusting to the surrounding light by the light modeSelector
+        case 2: // adjusting luminosity to the surrounding light
             // the lamp is lightning according to outside light that is observed from the light sensor:
             // light sensor to observed the out side light
             // variable resistor:- if is greater then first half then the more light outside the more light our lamp lights
@@ -356,7 +391,7 @@ void provide_action()
             }
             break;
 
-        case 4: // mode 4 will light if the surrounding light is not enough and there is a body motion detected
+        case 4: // mode 4 will lights if the surrounding light is not enough and there is a body motion detected
             // light sensor: to detect if there is sufisan light
             // motion detector : to detect if a body is moving
             // variable resistor : to adjust the prefered output
@@ -402,7 +437,6 @@ void provide_action()
             loopBreak = 0;       // no loop
             clickTiming = 0;     // reset the press timing
             lightLevel = 128;    // light level high
-
             break;
         }
     }
