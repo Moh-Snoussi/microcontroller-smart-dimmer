@@ -5,7 +5,7 @@
  * 
  * @ALERT: USE IS AT YOUR OWN RISK
  * 
- * @DANGER: Risk Of Electrical Shock and Danger Of Death High Voltage, electrical hazards.
+ * @DANGER: Risk Of Electrical Shock and Danger Of Death!!! High Voltage, electrical hazards.
  * This progect is dangerous and can threatten your life, damage or fire
  * 
  * @project: controlling an alternative 220/110 volts from a 5 volts microcontroller 
