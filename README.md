@@ -133,7 +133,7 @@ Taking advantage of the double-faced Photoresist Board by connecting the ground 
 </p>
 <p align="center">------------------------------------------------------------------</p>
 <p align="center">
-- The High Voltage input is on the far left corner the output is directly under the input
+- The High Voltage input is on the far left corner and the output is directly under the input
 </p>
 <p align="center">
 <img src="https://raw.githubusercontent.com/Moh-Snoussi/microcontroller-smart-dimmer/master/ref/3d_card.JPG" alt="circuit" title="components side">
