@@ -8,16 +8,17 @@
  * @DANGER: Risk Of Electrical Shock and Danger Of Death!!! High Voltage, electrical hazards.
  * This progect is dangerous and can threatten your life, damage or fire
  * 
- * @project: controlling an alternative 220/110 volts from a 5 volts microcontroller 
+ * @project: controlling an alternative 220/110 volts from a 5 volts microcontroller.
+ * The project compiled with CCS C Compiler and use 16F866 PIC Microcontroller
  * 
  * control interface :
  * 
- * 1 : API: uart protocol with a baud rate of 1200 that can be connected and communication
- *          can be established through computer usb to serial adaptaeur directly or trough 
- *          a radio frequencies module with an rf module 433mhz transmiter where the receiver
- *          is connected to the uart microcontroller that fires an interupt if it recieve a signal. 
+ * 1 : API: uart protocol with a baud rate of 1200 communication can be established through 
+ *          computer usb to serial adaptaeur directly or trough a radio frequencies rf 433mhz 
+ *          module transmiter where the receiver is connected to the uart microcontroller that 
+ *          fires an interupt if it recieve a signal. 
  *
- *     - The instraction need to contain two bytes one byte key and one byte instraction:
+ *     - The instraction need to contain two bytes:
  *       - the first byte is a key and it need to be 0xBD
  *       - the second byte is the instraction and it need to be as follows:
  *         - from 0x33 to 0x39 will light up the lamp accordingly: 0x33 the lamp is low dimmed, 0x39 the lamp is high dimmed
@@ -46,25 +47,20 @@
  * the only links bettween the 220/110 volts circuit and the 5 volts circuit is the optocouplers(4N35) and the optoisolator(MOC3020).
  * Make also sure that the conrole interface is connected through connectors and seperated from the circuit 
  * 
- * @brief: run from F18 PIC MICROONTROLLER series 
- * the solution work on the provided circuit to control a 220/110 volts 60/50 MHZ alternative current output
- * as a demonstration we use a lamp 
  * 
  * the lamp control is done by observing the alternative current pulse and detecting the rise of its curve with 4n35 
- * then allow the ground flow to a pull up resistor that cause an interupt on the microcontroller 
- * where we proccess according to the selected mode and output a signal accordingly to the moc3020 and to the triac 
- * that open up a gate for the 220/110 volts 60/50 MHZ alternative current on each half oscillation in order for the 
+ * that cause an interupt on each oscillation in the microcontroller where we proccess according to the selected mode 
+ * and output a signal accordingly to the moc3020 then to the triac that open up a gate for the High alternative Voltage on each half oscillation in order for the 
  * light to dime without resistor.
  * 
- * The solution functions
+ * The solution functions:
  * Light dimmer with manual adjustment
- * Light dimmes according to the lightning sourounded
- * Light dimmes from hight to low on an infinit loop
- * Light up on after detecting a body movement 
- * Light up after detecting a body movement only only if there is no sourounding light
+ * Light dimmes according to the sourounded lightning
+ * Light dimmes automaticaly from hight to low on an infinit loop
+ * Lights on if detected a body movement 
+ * Lights on if detected a body movement only if there is little to no sourounding light
  * Light up any mode by an API request 
  * 
-
  * 
  * @Requirements: 
  *       - 1 PIC microcontroller 16f866
@@ -72,13 +68,13 @@
  *       - 3 resistors 100K 1/4w
  *       - 1 resistor 51k OHM 1/4w
  *       - 2 resistors 680 OHM 1/2wat
- *       - 1 risitor 10 k 1/4w
- *       - 2 resitor 220 OHM 1/4w
+ *       - 1 resistor 10 k 1/4w
+ *       - 2 resistor 220 OHM 1/4w
 
  *       - 2 30pf ceramic resistors
- *       - 1 35v 10uf electrolic capasitor
+ *       - 1 35v 10uf electronic capacitor
  *       - 1 bridge rectifier 3A 700V
- *       - 1 optocoupleur phototransistor 4N35
+ *       - 1 optocouplers phototransistor 4N35
  *       - 1 optoisolator transistor MOC3020
  *       - 1 20MHz Crystal Oscillator
  *       - 1 relay 10A 5/25 DC - 110/220AC
