@@ -90,9 +90,9 @@ Make also sure that the control interface is connected through wire connectors a
 <a name="Control"></a>
 ## Controls
 ### 5. Manual control:       
-The manual controller consists of one button and a variable resistor:
+The manual controller consists of one button and a potentiometer variable resistor:
 
-```The button is the mode selector and the variable resistor function according to the selected mode. Long button press changes to the next mode.```
+```The button is the mode selector and the potentiometer function according to the selected mode. Long button press changes to the next mode.```
 
 ##### Modes
 - 1 : manual luminosity adjustment by the variable resistor.
