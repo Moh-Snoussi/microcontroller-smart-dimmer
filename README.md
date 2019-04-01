@@ -20,7 +20,9 @@
 
 <a name="desc"></a>
 ## 1. Description
-Controlling an alternative High Voltage from a 5 volts microcontroller. The project is compiled using CCS C Compiler and uses a 16F866 PIC Microcontroller. 
+#### Controlling an alternative High Voltage from a 5 volts microcontroller. 
+
+The project is compiled using CCS C Compiler and uses a 16F866 PIC Microcontroller. 
 The main microcontroller program is multifunctiondimmer.c
 
 Circuit schematic, Programs, HEX files PCB circuit and proteus files are included in the root folder and the ref directory.
