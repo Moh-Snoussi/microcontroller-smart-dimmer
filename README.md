@@ -78,7 +78,7 @@ The device is powered by 220v AC for the lamp circuit and 5 Volts DC for the mic
 
 Make sure that the is no physical connection between the High volts(220V) circuit and the Low volts circuit(5V), the only links between them should only be the optocouplers(4N35) and the optoisolator(MOC3020).
 
-Make also sure that the control interface is connected through wire connectors and separated from the circuit.
+Make also sure that the manual control interface is connected through wire connectors and separated from the main circuit.
 
 <a name="Warnings"></a>
 ## 4. Warning
@@ -93,6 +93,8 @@ Make also sure that the control interface is connected through wire connectors a
 The manual controller consists of one button and a potentiometer variable resistor:
 
 ```The button is the mode selector and the potentiometer function according to the selected mode. Long button press changes to the next mode.```
+
+Make sure that the manual control interface is connected through wire connectors and separated from the main circuit.
 
 ##### Modes
 - 1 : manual luminosity adjustment by the variable resistor.
