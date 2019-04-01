@@ -93,7 +93,7 @@
  * 
  */
 
-#include <mainlast final.h>
+#include <projectHeaders.h>
 #include <stdlibm.h>
 #include "math.h"
 
@@ -116,7 +116,7 @@ int modeSelector, out;
 void apiState(int instruction)
 {
 
-    if ((instruction != oldInstruction) && (instruction == 0x33 || instruction == 0x32 || instruction == 0x31 || instruction == 0x30 || instruction == 0x34 || instruction == 0x35 || instruction == 0x36 || instruction == 0x37 || instruction == 0x38 || instruction == 0x39 || instruction == 0x61 || instruction == 0x62 || instruction == 0x73))
+    if ((instruction != oldInstruction) && (instruction == 0x30 || instruction == 0x31 || instruction == 0x32 || instruction == 0x33 || instruction == 0x34 || instruction == 0x35 || instruction == 0x36 || instruction == 0x37 || instruction == 0x38 || instruction == 0x39 || instruction == 0x61 || instruction == 0x62 || instruction == 0x73))
     {
         oldInstruction = instruction;
         switch (instruction)
