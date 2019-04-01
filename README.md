@@ -150,14 +150,12 @@ A simple php site hosted on the internet that contains a form with the project p
 
 4. A python program running on pc, loads a json file from the internet and load another json file from the local storage and compere the both file against one another.(please check the python program serialConnector.py)
 
-5. if the last entry(value) in the locally stored json file doesn't match the the first entry of the internet loaded json file, then it send a uart signal through the USB port (usb to serial converter) and append the new value from the internet loaded json to a new line in the the locally stored json file, so the instructions will execute only if the internet json file is changed.(serialConnector.py)
+5. if the last entry in the locally stored json file doesn't match the the first entry of the internet loaded json file, then it send a uart signal through the USB port (usb-to-serial-converter) and append the new value from the internet loaded json to a new line in the the locally stored json file, so the instructions will execute only if the internet json file is changed.(serialConnector.py)
 
-6. then repeat on an infinite loop every 3 to 6 seconds.(serialConnector.py)
+6. then repeat on an infinite loop every 3 to 6 seconds.
 
 
-The php site is internetControle.php,
-
-The file responsible for checking and sending signals is the serialConnector.py, the file is python program so make sure that python is installed on your computer. 
+The php site is internetControle.php.
 
 
 
