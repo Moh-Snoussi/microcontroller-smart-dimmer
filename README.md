@@ -119,24 +119,25 @@ Uart protocol is the application programming interface of this project its baud 
     (the hexadecimal 0xBD is equal to the ASCII ½)
 
     - an instruction byte that need to be as follows:
-        - from 0x30 to 0x39 will light up the lamp accordingly: 0x33 the lamp is low dimmed, 0x39 the lamp is high dimmed
-        - 0x40 will light if the surrounding light is not enough and there is a body motion detected
-        - 0x41 light on body movement detection
+        - from 0x30 to 0x39 light up the lamp accordingly: 0x30 the lamp is low dimmed, 0x39 the lamp is high dimmed
+        - 0x40 light up if there is no surrounding light and there is a body motion detected
+        - 0x41 light up on body movement detection
         - 0x42 adjusting to the surrounding light by the light modeSelector 
         - 0x43 manual adjustment by the variable resistor
         - 0x61 will dime the lamp from the lowest level to the highest level on infinite loop
 
 ### 7. Wireless control through the RF 433 MHz
-The RF 433Mhz is a cheap module that is used to send wireless signals, and its signals are a bit difficult to deal with. 
-It is said that the lunch distance is between 20 and 200 meter.
+The RF 433Mhz is a cheap module that is used to send wireless signals, they are a little bit difficult to deal with. 
+It is said that their lunch distance is between 20 and 200 meter.
 I didn't test it on a long distance but with 5 meter works fine, the key in succeeding is sending every signal 20 to 100 time through the transmitter in order for one signal to reaching the other end of the receiver.
 
 When dealing with the rf 433MHz its important that the project is successfully working through a wired connection before implementing the rf 433 MHz. (from the tx of the usb-to-serial-converter wired-connected to the rx of our circuit).
 
-The file responsible for checking and sending signals is the serialConnector.py, the file is python program so make sure that python is installed on your computer. 
+The file responsible for checking and sending signals is the serialConnector.py, the file is a python program so make sure that python is installed on your computer. 
 
 ### 8. The internet
-A simple php site hosted on the internet that contains a form with the project parameters, after selecting our desired mode, on submit it will write the changes in a json file on an internet location, the changes then will be detected by our python program that is checking the internet file regularly and will send a signals with the corresponding instruction to the device.
+##### By selecting a mode on an site from any device with internet, the selected mode will reflect on our High Voltage Current output
+A simple php site hosted on the internet that contains a form with the project parameters, after we select our desired mode, on submit it will write the changes in a json file on an internet location, the changes then will be detected by our python program that is checking the internet file regularly and will send a signals with the corresponding instruction to the device.
 
 
 ##### Steps:
@@ -153,16 +154,10 @@ A simple php site hosted on the internet that contains a form with the project p
 
 6. then repeat on an infinite loop every 3 to 6 seconds.(serialConnector.py)
 
-The php site is internetControle.php, the file is python 
+
+The php site is internetControle.php,
 
 The file responsible for checking and sending signals is the serialConnector.py, the file is python program so make sure that python is installed on your computer. 
-
-##### Modifying internetJson and the changes will reflect on our High Voltage Current output
-
-
-In order to succeed with he rf433 Mhz make sure that the project is working through a wired connection ( from the tx of the usb to serial converter to the rx of our circuit . please check Circuit schematic).   
-
-
 
 
 
