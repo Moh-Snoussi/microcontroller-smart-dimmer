@@ -128,9 +128,8 @@ Uart protocol is the application programming interface of this project its baud 
         - 0x61 will dime the lamp from the lowest level to the highest level on infinite loop
 
 ### 7. Wireless control through the RF 433 MHz
-The RF 433Mhz is a cheap module that is used to send wireless signals, they are a little bit difficult to deal with. 
-It is said that their lunch distance is between 20 and 200 meter.
-I didn't test it on a long distance but with 5 meter works fine, the key in succeeding is sending every signal 20 to 100 time through the transmitter in order for one signal to reaching the other end of the receiver.
+The RF 433Mhz is a cheap module that is used to send wireless signals, in their datasheet it is said that their lunch distance is between 20 and 200 meter.
+I didn't test it on a long distance but with 5 meter it works fine, the key in succeeding is sending every signal 20 to 100 time through the transmitter in order for one signal to reaching the other end of the receiver.
 
 When dealing with the rf 433MHz its important that the project is successfully working through a wired connection before implementing the rf 433 MHz. (from the tx of the usb-to-serial-converter wired-connected to the rx of our circuit).
 
