@@ -105,7 +105,7 @@ int modeSelector, out;
 /**
  * @brief API interface
  * UART communication baud rate 1200
- * This function fires only if an uart signal have 0xBD as first byte the check is done by the interrupt function 
+ * This function fires only if an uart signal have 0xBD as first byte. the check is done by the interrupt function 
  * that is next to this function.
  * Second uart byte is the instruction and the mode selector 
  * this function should have an instruction byte as parametter
