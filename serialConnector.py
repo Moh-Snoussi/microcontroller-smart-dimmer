@@ -11,10 +11,10 @@
 # (usb to serial converter needed) and append the new value on a new line in the the locally stored json file.
 # then repeat on an infinite loop every randomly period (from 3 to 6 second)
 #################################################################################
-
+# install pyserial library before proceeding
 # importing needed libraries ####################################################
 from time import gmtime, strftime
-import time, random, os ,serial, json
+import random, os ,serial, json
 
 
 try:
