@@ -22,7 +22,7 @@
 ## 1. Description
 #### Controlling an alternative High Voltage from a 5 volts microcontroller. 
 
-The High Voltage control is done by observing the 60 or 50 MHz 220 volts pulse and detecting the rise and the fall of its curve with the optocoupler 4N35 that cause an interrupt on each half oscillation in the microcontroller where we process according to the selected mode and output a signal accordingly to the optoisolator MOC3020 then to the TRIAC that open up a gate for the High alternative Voltage on each half oscillation (60*2 per second) in order for (for the project we will use 220 volts lamp) the light to dime. We will also include different control and sensors to allow different mode.
+The High Voltage control is done by observing the 60 or 50 MHz 220 volts oscilation and detecting the rise and the fall of its curve with the optocoupler 4N35 that cause an interrupt on each half oscillation in the microcontroller where we process according to the selected mode and output a signal accordingly to the optoisolator MOC3020 then to the TRIAC that open up a gate for the High alternative Voltage on each half oscillation (60*2 per second) in order for (for the project we will use 220 volts lamp) the light to dime. We will also include different control and sensors to allow different mode.
 
  Modes :
  * Light dimmer with manual adjustment through a potentiometer
