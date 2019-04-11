@@ -129,7 +129,7 @@ Uart protocol is the application programming interface of this project its baud 
 
 ### 7. Wireless control through the RF 433 MHz
 The RF 433Mhz is a cheap module that is used to send wireless signals, in their datasheet it is said that their lunch distance is between 20 and 200 meter.
-I didn't test it on a long distance but with 5 meter it works fine, the key in succeeding is sending every signal 20 to 100 time through the transmitter in order for one signal to reaching the other end of the receiver.
+I didn't test it on a long distance but with 5 meter it works fine, the key in succeeding is sending every signal 20 to 100 time through a low Baud rate of 1200 from the transmitter in order for one signal to reaching the other end of the receiver.
 
 When dealing with the rf 433MHz its important that the project is successfully working through a wired connection before implementing the rf 433 MHz. (from the tx of the usb-to-serial-converter wired-connected to the rx of our circuit).
 
